@@ -609,6 +609,151 @@ img, svg, video, canvas { max-width: 100%; }
 }
 @keyframes shimmer { to { transform: translateX(100%); } }
 
+/* Stat-card sparkline: bleeds edge-to-edge along the card bottom. */
+.stat-spark { margin: 14px -18px -16px; height: 34px; line-height: 0; }
+.spark { display: block; width: 100%; height: 34px; }
+.spark-line { fill: none; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.spark-fill { stroke: none; }
+.spark.pos .spark-line { stroke: var(--success); }
+.spark.pos .spark-fill { fill: rgba(52,211,153,0.13); }
+.spark.neg .spark-line { stroke: var(--danger); }
+.spark.neg .spark-fill { fill: rgba(248,113,113,0.13); }
+
+/* Chart tools: legend + range segmented control */
+.chart-tools { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: space-between; }
+.seg {
+  display: inline-flex;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  gap: 2px;
+}
+.seg button {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  min-height: 32px;
+  font-variant-numeric: tabular-nums;
+  transition: background 140ms ease, color 140ms ease;
+}
+.seg button:hover { color: var(--text-2); }
+.seg button.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 8px -3px rgba(99,102,241,0.7);
+}
+
+/* Search box with leading icon */
+.search-box { position: relative; width: 100%; display: flex; align-items: center; }
+.search-ico { position: absolute; left: 12px; color: var(--muted); pointer-events: none; }
+.search-box #user-search { padding-left: 36px; }
+
+.users-table th.sorted { color: var(--text-2); }
+.empty-row { padding: 28px 16px; text-align: center; color: var(--muted); font-size: .9rem; }
+
+/* Notifications dropdown */
+.notif { position: relative; }
+.notif-dot {
+  position: absolute; top: 8px; right: 9px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--danger); border: 2px solid var(--bg);
+}
+.notif-panel {
+  position: absolute; right: 0; top: calc(100% + 10px);
+  width: min(340px, 92vw);
+  background: var(--bg-elev);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 40px -12px rgba(0,0,0,0.7);
+  z-index: 60; overflow: hidden;
+  animation: viewIn 160ms ease;
+}
+.notif-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 15px; border-bottom: 1px solid var(--border);
+}
+.notif-h-title { font-weight: 650; font-size: .92rem; display: inline-flex; align-items: center; gap: 8px; }
+.notif-badge {
+  background: var(--accent); color: #fff; font-size: .68rem; font-weight: 700;
+  min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.notif-clear {
+  background: none; border: none; color: var(--accent-2);
+  font-size: .8rem; font-weight: 600; cursor: pointer; padding: 4px;
+}
+.notif-clear:disabled { color: var(--muted); cursor: default; }
+.notif-clear:not(:disabled):hover { color: var(--text); }
+.notif-list { max-height: 340px; overflow-y: auto; }
+.notif-item {
+  display: flex; gap: 11px; padding: 12px 15px 12px 18px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.notif-item:last-child { border-bottom: none; }
+.notif-item.unread { background: rgba(99,102,241,0.06); }
+.notif-item.unread::before {
+  content: ''; position: absolute; left: 7px; top: 50%; transform: translateY(-50%);
+  width: 5px; height: 5px; border-radius: 50%; background: var(--accent-2);
+}
+.notif-ico {
+  flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px;
+  display: grid; place-items: center;
+  background: var(--accent-soft); color: var(--accent-2);
+}
+.notif-ico.payment { background: var(--success-soft); color: var(--success); }
+.notif-ico.churn { background: var(--danger-soft); color: var(--danger); }
+.notif-ico.report { background: var(--info-soft); color: var(--info); }
+.notif-text { min-width: 0; flex: 1; }
+.notif-title { font-size: .87rem; font-weight: 600; }
+.notif-body { font-size: .82rem; color: var(--muted); margin-top: 2px; line-height: 1.35; }
+.notif-ago { font-size: .74rem; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+.notif-empty { padding: 28px 16px; text-align: center; color: var(--muted); font-size: .88rem; }
+
+/* Responsive tables: below 640px each row becomes a labeled card instead of a
+   horizontally-scrolling grid (this product is used mostly on phones). */
+@media (max-width: 640px) {
+  .table-wrap { border: none; overflow: visible; }
+  .users-table { min-width: 0; display: block; }
+  .users-table thead { display: none; }
+  .users-table tbody { display: block; }
+  .users-table tr {
+    display: block;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 4px 14px;
+    margin-bottom: 10px;
+  }
+  .users-table tbody tr:hover { background: var(--bg-elev); }
+  .users-table td {
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    white-space: normal;
+    text-align: right;
+  }
+  .users-table tr td:last-child { border-bottom: none; }
+  .users-table td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    font-weight: 600;
+    text-align: left;
+    flex-shrink: 0;
+  }
+  .users-table td.cell-name { font-weight: 700; }
+  .users-table td.cell-name .small { color: var(--muted); font-weight: 400; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }

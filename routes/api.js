@@ -8,7 +8,8 @@ router.get('/stats', (req, res) => {
 });
 
 router.get('/activity', (req, res) => {
-  res.json({ series: mock.activitySeries() });
+  const range = Math.min(90, Math.max(7, parseInt(req.query.range, 10) || 30));
+  res.json({ series: mock.activitySeries(range), range });
 });
 
 router.get('/users', (req, res) => {
@@ -22,6 +23,10 @@ router.get('/users', (req, res) => {
 
 router.get('/revenue', (req, res) => {
   res.json(mock.revenue());
+});
+
+router.get('/notifications', (req, res) => {
+  res.json({ notifications: mock.notifications() });
 });
 
 module.exports = router;
