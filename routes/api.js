@@ -20,4 +20,8 @@ router.get('/users', (req, res) => {
   res.json(mock.users({ page, perPage, sort, dir, filter }));
 });
 
+router.get('/revenue', (req, res) => {
+  res.json(mock.revenue());
+});
+
 module.exports = router;

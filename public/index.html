@@ -31,20 +31,20 @@
     Dashboard
   </div>
   <div class="nav-label">Menu</div>
-  <nav>
-    <a class="nav-item active" href="#overview">
+  <nav id="nav">
+    <a class="nav-item" href="#/overview" data-route="overview">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
       Overview
     </a>
-    <a class="nav-item" href="#users">
+    <a class="nav-item" href="#/users" data-route="users">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
       Users
     </a>
-    <a class="nav-item" href="#revenue">
+    <a class="nav-item" href="#/revenue" data-route="revenue">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
       Revenue
     </a>
-    <a class="nav-item" href="#settings">
+    <a class="nav-item" href="#/settings" data-route="settings">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       Settings
     </a>
@@ -61,7 +61,7 @@
 <main class="content">
   <header class="topbar">
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">☰</button>
-    <h1>Overview</h1>
+    <h1 id="page-title">Overview</h1>
     <div class="topbar-actions">
       <button class="icon-btn" title="Notifications" aria-label="Notifications">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg>
@@ -69,47 +69,10 @@
     </div>
   </header>
 
-  <section class="stat-grid" id="stat-grid"></section>
-
-  <section class="chart-card">
-    <div class="chart-head">
-      <div>
-        <h2>Revenue and signups</h2>
-        <div class="sub">Last 30 days</div>
-      </div>
-      <div class="legend">
-        <span><i class="dot dot-revenue"></i> Revenue</span>
-        <span><i class="dot dot-signups"></i> Signups</span>
-      </div>
-    </div>
-    <div class="chart-wrap">
-      <canvas id="chart" height="220"></canvas>
-    </div>
-  </section>
-
-  <section class="table-card">
-    <div class="table-head">
-      <h2>Users</h2>
-      <input type="search" id="user-search" placeholder="Filter rows…" />
-    </div>
-    <div class="table-wrap">
-      <table class="users-table">
-        <thead>
-          <tr>
-            <th data-sort="name" tabindex="0" role="columnheader" aria-sort="none">Name</th>
-            <th data-sort="email" tabindex="0" role="columnheader" aria-sort="none">Email</th>
-            <th data-sort="plan" tabindex="0" role="columnheader" aria-sort="none">Plan</th>
-            <th data-sort="status" tabindex="0" role="columnheader" aria-sort="none">Status</th>
-            <th data-sort="mrr" tabindex="0" role="columnheader" aria-sort="none">MRR</th>
-            <th data-sort="createdAt" tabindex="0" role="columnheader" aria-sort="none">Joined</th>
-          </tr>
-        </thead>
-        <tbody id="users-body"></tbody>
-      </table>
-    </div>
-    <div class="pagination" id="pagination"></div>
-  </section>
+  <div id="view"></div>
 </main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script src="/app.js"></script>
